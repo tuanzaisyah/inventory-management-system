@@ -6,6 +6,7 @@ import userRoute from "./routes/user.route.js";
 import supplierRoute from "./routes/supplier.route.js";
 import productRoute from "./routes/product.route.js";
 import cookieParser from "cookie-parser";
+import cors from "cors";
 
 const app = express();
 
@@ -21,6 +22,7 @@ const connect = async () => {
   }
 };
 
+app.use(cors({ origin: "http://localhost:3000", credentials: true }));
 app.use(express.json());
 app.use(cookieParser());
 
