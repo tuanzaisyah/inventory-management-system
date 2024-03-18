@@ -15,7 +15,7 @@ const Suppliers = () => {
     setOpenModal(true);
   };
 
-  const { isLoading, error, data } = useQuery({
+  const { isLoading, error, data, refetch } = useQuery({
     queryKey: ["supplier"],
     queryFn: () =>
       newRequest.get("/suppliers").then((res) => {
@@ -119,7 +119,11 @@ const Suppliers = () => {
         </div>
       </div>
       {openModal && (
-        <SupplierModal setOpenModal={setOpenModal} modalType={modalType} />
+        <SupplierModal
+          setOpenModal={setOpenModal}
+          modalType={modalType}
+          refetch={refetch}
+        />
       )}
     </div>
   );
