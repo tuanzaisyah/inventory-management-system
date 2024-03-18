@@ -13,7 +13,7 @@ const Profile = () => {
 
   const user = getCurrentUser();
 
-  const { isLoading, error, data } = useQuery({
+  const { isLoading, error, data, refetch } = useQuery({
     queryKey: ["user"],
     queryFn: () =>
       newRequest.get(`/users/${user._id}`).then((res) => {
@@ -72,7 +72,11 @@ const Profile = () => {
         )}
       </div>
       {openModal && (
-        <ProfileModal setOpenModal={setOpenModal} userData={data} />
+        <ProfileModal
+          setOpenModal={setOpenModal}
+          userData={data}
+          refetch={refetch}
+        />
       )}
     </div>
   );

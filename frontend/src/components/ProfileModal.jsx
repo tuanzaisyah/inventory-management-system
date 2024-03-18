@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { LuImagePlus } from "react-icons/lu";
 import newRequest from "../utils/newRequest";
 
-const ProfileModal = ({ setOpenModal, userData }) => {
+const ProfileModal = ({ setOpenModal, userData, refetch }) => {
   const [data, setData] = useState({
     name: undefined,
     username: undefined,
@@ -21,8 +21,8 @@ const ProfileModal = ({ setOpenModal, userData }) => {
 
     try {
       await newRequest.put(`/users/${userData._id}`, data);
-      window.location.reload();
       setOpenModal(false);
+      refetch();
     } catch (err) {
       console.log(err);
     }
