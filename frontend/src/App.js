@@ -9,21 +9,32 @@ import ProductInformation from "./pages/ProductInformation";
 import Suppliers from "./pages/Suppliers";
 import SupplierInformation from "./pages/SupplierInformation";
 import Profile from "./pages/Profile";
+import {
+  QueryClient,
+  QueryClientProvider,
+  useQuery,
+} from "@tanstack/react-query";
+
+const queryClient = new QueryClient();
 
 function App() {
   const AuthLayout = () => {
     return (
       <div className="">
-        <Outlet />
+        <QueryClientProvider client={queryClient}>
+          <Outlet />
+        </QueryClientProvider>
       </div>
     );
   };
   const MainLayout = () => {
     return (
       <div>
-        <Navbar />
-        <Sidebar />
-        <Outlet />
+        <QueryClientProvider client={queryClient}>
+          <Navbar />
+          <Sidebar />
+          <Outlet />
+        </QueryClientProvider>
       </div>
     );
   };
