@@ -1,4 +1,9 @@
-import { createBrowserRouter, RouterProvider, Outlet } from "react-router-dom";
+import {
+  createBrowserRouter,
+  RouterProvider,
+  Outlet,
+  Navigate,
+} from "react-router-dom";
 import Navbar from "./components/Navbar";
 import Sidebar from "./components/Sidebar";
 import Dashboard from "./pages/Dashboard";
@@ -14,10 +19,12 @@ import {
   QueryClientProvider,
   useQuery,
 } from "@tanstack/react-query";
+import getCurrentUser from "./utils/getCurrentUser";
 
 const queryClient = new QueryClient();
 
 function App() {
+  const user = getCurrentUser();
   const AuthLayout = () => {
     return (
       <div className="">
@@ -39,6 +46,14 @@ function App() {
     );
   };
 
+  const ProtectedRoute = ({ children }) => {
+    if (!user) {
+      return <Navigate to="auth/login" />;
+    }
+
+    return children;
+  };
+
   const router = createBrowserRouter([
     {
       path: "auth",
@@ -56,7 +71,13 @@ function App() {
     },
     {
       path: "/",
-      element: <MainLayout />,
+
+      element: (
+        <ProtectedRoute>
+          <MainLayout />
+        </ProtectedRoute>
+      ),
+
       children: [
         {
           path: "/",
