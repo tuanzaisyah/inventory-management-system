@@ -3,224 +3,8 @@ import { BsPlusCircle, BsSearch } from "react-icons/bs";
 import { DataGrid } from "@mui/x-data-grid";
 import { Link } from "react-router-dom";
 import ProductModal from "../components/ProductModal";
-
-const columns = [
-  { field: "id", headerName: "ID", width: 70 },
-  { field: "name", headerName: "Product Name", width: 200 },
-  { field: "category", headerName: "Category", width: 200 },
-  { field: "desc", headerName: "Description", width: 400 },
-  {
-    field: "price",
-    headerName: "Price (RM)",
-    type: "number",
-    width: 90,
-  },
-  {
-    field: "quantity",
-    headerName: "Quantity",
-    type: "number",
-    width: 90,
-  },
-  { field: "supplier", headerName: "Supplier", width: 150 },
-  {
-    field: "action",
-    headerName: "Action",
-    width: 450,
-    sortable: false,
-    renderCell: (params) => {
-      return (
-        <div className="flex flex-row justify-center bg-blue-300 text-blue-400 py-1 px-4 rounded-lg">
-          <Link to={`/inventory/${params.row._id}`}>
-            <button className="">View</button>
-          </Link>
-        </div>
-      );
-    },
-  },
-];
-
-const rows = [
-  {
-    id: 1,
-    name: "Smartphone X",
-    category: "Mobile Devices",
-    desc: "Powerful smartphone with advanced features",
-    price: 799.99,
-    quantity: 100,
-    supplier: "TechMart",
-  },
-  {
-    id: 2,
-    name: "UltraBook Pro",
-    category: "Laptops",
-    desc: "Slim and high-performance ultrabook for professionals",
-    price: 1299.99,
-    quantity: 50,
-    supplier: "ElectroTech",
-  },
-  {
-    id: 3,
-    name: "VR Gaming Headset",
-    category: "Gaming Accessories",
-    desc: "Immersive virtual reality experience for gamers",
-    price: 399.99,
-    quantity: 30,
-    supplier: "GameGear",
-  },
-  {
-    id: 4,
-    name: "4K Smart TV",
-    category: "Televisions",
-    desc: "Ultra-high-definition smart TV for cinematic viewing",
-    price: 899.99,
-    quantity: 20,
-    supplier: "HomeTech Solutions",
-  },
-  {
-    id: 5,
-    name: "Wireless Earbuds",
-    category: "Audio Devices",
-    desc: "Compact and noise-canceling wireless earbuds",
-    price: 129.99,
-    quantity: 50,
-    supplier: "AudioMax",
-  },
-  {
-    id: 6,
-    name: "Gaming Console Elite",
-    category: "Gaming Consoles",
-    desc: "High-performance gaming console for enthusiasts",
-    price: 499.99,
-    quantity: 25,
-    supplier: "GameHaven",
-  },
-  {
-    id: 7,
-    name: "Smart Home Hub",
-    category: "Smart Home",
-    desc: "Centralized hub for home automation and control",
-    price: 199.99,
-    quantity: 40,
-    supplier: "SmartLiving Tech",
-  },
-  {
-    id: 8,
-    name: "Camera Drone X",
-    category: "Drones",
-    desc: "High-resolution camera drone for aerial photography",
-    price: 599.99,
-    quantity: 15,
-    supplier: "SkyView Innovations",
-  },
-  {
-    id: 9,
-    name: "Fitness Tracker Pro",
-    category: "Wearable Tech",
-    desc: "Advanced fitness tracker with health monitoring",
-    price: 79.99,
-    quantity: 60,
-    supplier: "HealthTech Wearables",
-  },
-  {
-    id: 10,
-    name: "Portable Bluetooth Speaker",
-    category: "Audio Devices",
-    desc: "Compact and portable speaker with wireless connectivity",
-    price: 49.99,
-    quantity: 75,
-    supplier: "SoundWave Electronics",
-  },
-  {
-    id: 11,
-    name: "Smart Thermostat",
-    category: "Smart Home",
-    desc: "Energy-efficient thermostat with smart home integration",
-    price: 129.99,
-    quantity: 35,
-    supplier: "EcoTech Solutions",
-  },
-  {
-    id: 12,
-    name: "Gaming Mouse RGB",
-    category: "Gaming Accessories",
-    desc: "High-precision gaming mouse with customizable RGB lighting",
-    price: 69.99,
-    quantity: 50,
-    supplier: "GamerGear Pro",
-  },
-  {
-    id: 13,
-    name: "HD Webcam",
-    category: "Computer Accessories",
-    desc: "High-definition webcam for video conferencing and streaming",
-    price: 89.99,
-    quantity: 25,
-    supplier: "TechConnect",
-  },
-  {
-    id: 14,
-    name: "Smart WiFi Router",
-    category: "Networking",
-    desc: "Advanced WiFi router for seamless internet connectivity",
-    price: 129.99,
-    quantity: 30,
-    supplier: "NetLink Technologies",
-  },
-  {
-    id: 15,
-    name: "Wireless Charging Pad",
-    category: "Mobile Accessories",
-    desc: "Qi-compatible wireless charging pad for smartphones",
-    price: 29.99,
-    quantity: 100,
-    supplier: "ChargePro",
-  },
-  {
-    id: 16,
-    name: "Curved Gaming Monitor",
-    category: "Monitors",
-    desc: "Immersive curved monitor for gaming and productivity",
-    price: 399.99,
-    quantity: 20,
-    supplier: "DisplayTech",
-  },
-  {
-    id: 17,
-    name: "Smart Doorbell",
-    category: "Home Security",
-    desc: "Video doorbell with smart security features",
-    price: 149.99,
-    quantity: 30,
-    supplier: "SecureHome Systems",
-  },
-  {
-    id: 18,
-    name: "Bluetooth Fitness Earphones",
-    category: "Wearable Tech",
-    desc: "Wireless earphones with fitness tracking capabilities",
-    price: 59.99,
-    quantity: 40,
-    supplier: "FitnessTech Pro",
-  },
-  {
-    id: 19,
-    name: "3D Printer Deluxe",
-    category: "Printers",
-    desc: "High-precision 3D printer for professional use",
-    price: 799.99,
-    quantity: 10,
-    supplier: "PrintInnovate",
-  },
-  {
-    id: 20,
-    name: "Smart LED Bulbs",
-    category: "Smart Home",
-    desc: "Energy-efficient LED bulbs with smart lighting features",
-    price: 19.99,
-    quantity: 50,
-    supplier: "LightTech Solutions",
-  },
-];
+import { useQuery } from "@tanstack/react-query";
+import newRequest from "../utils/newRequest";
 
 const Products = () => {
   const [openModal, setOpenModal] = useState(false);
@@ -230,6 +14,119 @@ const Products = () => {
     setModalType("add");
     setOpenModal(true);
   };
+
+  const { isLoading, error, data } = useQuery({
+    queryKey: ["product"],
+    queryFn: () =>
+      newRequest.get("/inventory").then((res) => {
+        return res.data;
+      }),
+  });
+
+  const {
+    isLoading: isLoadingSupplier,
+    error: errorSupplier,
+    data: dataSupplier,
+  } = useQuery({
+    queryKey: ["supplier"],
+    queryFn: () =>
+      newRequest.get("/suppliers").then((res) => {
+        return res.data;
+      }),
+  });
+
+  const getSupplierNameById = (supplierId) => {
+    if (dataSupplier && dataSupplier.length > 0) {
+      const supplier = dataSupplier.find(
+        (supplier) => String(supplier._id).trim() === String(supplierId).trim()
+      );
+      return supplier ? supplier.name : "Unknown";
+    } else {
+      return "Loading...";
+    }
+  };
+
+  const columns = [
+    {
+      field: "id",
+      headerName: "ID",
+      width: 70,
+      renderCell: (params) => {
+        return <div>{params.row._id}</div>;
+      },
+    },
+    {
+      field: "name",
+      headerName: "Product Name",
+      width: 200,
+      renderCell: (params) => {
+        return <div>{params.row.name}</div>;
+      },
+    },
+    {
+      field: "category",
+      headerName: "Category",
+      width: 200,
+      renderCell: (params) => {
+        return <div>{params.row.category}</div>;
+      },
+    },
+    {
+      field: "desc",
+      headerName: "Description",
+      width: 400,
+      renderCell: (params) => {
+        return <div>{params.row.desc}</div>;
+      },
+    },
+    {
+      field: "price",
+      headerName: "Price (RM)",
+      type: "number",
+      width: 90,
+      renderCell: (params) => {
+        return <div>{params.row.price}</div>;
+      },
+    },
+    {
+      field: "quantity",
+      headerName: "Quantity",
+      type: "number",
+      width: 90,
+      renderCell: (params) => {
+        return <div>{params.row.quantity}</div>;
+      },
+    },
+    {
+      field: "supplier",
+      headerName: "Supplier",
+      width: 150,
+      renderCell: (params) => {
+        return (
+          <div>
+            <Link to={`/supplier/${params.row.supplierId}`}>
+              {getSupplierNameById(params.row.supplierId)}
+            </Link>
+          </div>
+        );
+      },
+    },
+    {
+      field: "action",
+      headerName: "Action",
+      width: 450,
+      sortable: false,
+      renderCell: (params) => {
+        return (
+          <div className="flex flex-row justify-center bg-blue-300 text-blue-400 py-1 px-4 rounded-lg">
+            <Link to={`/inventory/${params.row._id}`}>
+              <button className="">View</button>
+            </Link>
+          </div>
+        );
+      },
+    },
+  ];
 
   return (
     <div className="w-[calc(100vw-44px)] lg:w-[calc(100vw-160px)] h-[calc(100vh-80px)] pt-[102px] ml-11 lg:ml-40 px-6 pb-4 relative">
@@ -252,19 +149,26 @@ const Products = () => {
           </div>
         </div>
         <div>
-          <div style={{ height: 650, width: "100%" }}>
-            <DataGrid
-              rows={rows}
-              columns={columns}
-              initialState={{
-                pagination: {
-                  paginationModel: { page: 0, pageSize: 10 },
-                },
-              }}
-              pageSizeOptions={[5, 10, 15, 20]}
-              checkboxSelection
-            />
-          </div>
+          {isLoading || isLoadingSupplier ? ( // Check both isLoading and isLoadingSupplier
+            <p>Loading...</p>
+          ) : error || errorSupplier ? ( // Check both error and errorSupplier
+            <p>Error: {error ? error.message : errorSupplier.message}</p>
+          ) : data ? (
+            <div style={{ height: 650, width: "100%" }}>
+              <DataGrid
+                rows={data}
+                columns={columns}
+                initialState={{
+                  pagination: {
+                    paginationModel: { page: 0, pageSize: 10 },
+                  },
+                }}
+                pageSizeOptions={[5, 10, 15, 20]}
+                checkboxSelection
+                getRowId={(row) => row._id}
+              />
+            </div>
+          ) : null}
         </div>
       </div>
       {openModal && (
