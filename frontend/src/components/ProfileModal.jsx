@@ -1,7 +1,33 @@
-import React from "react";
+import React, { useState } from "react";
 import { LuImagePlus } from "react-icons/lu";
+import newRequest from "../utils/newRequest";
 
-const ProfileModal = ({ setOpenModal }) => {
+const ProfileModal = ({ setOpenModal, userData }) => {
+  const [data, setData] = useState({
+    name: undefined,
+    username: undefined,
+    email: undefined,
+    password: undefined,
+  });
+
+  const handleChange = (e) => {
+    setData((prev) => {
+      return { ...prev, [e.target.name]: e.target.value };
+    });
+  };
+
+  const handleUpdate = async (e) => {
+    e.preventDefault();
+
+    try {
+      await newRequest.put(`/users/${userData._id}`, data);
+      window.location.reload();
+      setOpenModal(false);
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   return (
     <div className="w-full h-full absolute top-[80px] right-0 left-0 bottom-0 bg-black bg-opacity-40 flex items-center justify-center">
       <div className="w-80 md:w-max h-max bg-white rounded-lg shadow-custom p-4">
@@ -10,7 +36,7 @@ const ProfileModal = ({ setOpenModal }) => {
         <div className="flex flex-row gap-4 items-center justify-center mt-10">
           <img
             className="w-auto h-40 lg:h-48 rounded-full border border-blue-200 object-cover"
-            src="/assets/img/noAvatar.png"
+            src={userData.img || "/assets/img/noAvatar.png"}
             alt="profilePic"
           />
           <label htmlFor="file">
@@ -26,7 +52,9 @@ const ProfileModal = ({ setOpenModal }) => {
               <input
                 className="border border-blue-200 rounded-lg px-4 py-1"
                 type="text"
-                id="name"
+                name="name"
+                placeholder={userData.name}
+                onChange={handleChange}
               />
             </div>
             <div className="flex flex-col gap-1">
@@ -34,7 +62,9 @@ const ProfileModal = ({ setOpenModal }) => {
               <input
                 className="border border-blue-200 rounded-lg px-4 py-1"
                 type="text"
-                id="username"
+                name="username"
+                placeholder={userData.username}
+                onChange={handleChange}
               />
             </div>
           </div>
@@ -44,7 +74,9 @@ const ProfileModal = ({ setOpenModal }) => {
               <input
                 className="border border-blue-200 rounded-lg px-4 py-1"
                 type="email"
-                id="email"
+                name="email"
+                placeholder={userData.email}
+                onChange={handleChange}
               />
             </div>
             <div className="flex flex-col gap-1">
@@ -52,7 +84,8 @@ const ProfileModal = ({ setOpenModal }) => {
               <input
                 className="border border-blue-200 rounded-lg px-4 py-1"
                 type="password"
-                id="password"
+                name="password"
+                onChange={handleChange}
               />
             </div>
           </div>
@@ -65,7 +98,10 @@ const ProfileModal = ({ setOpenModal }) => {
           >
             Cancel
           </button>
-          <button className="w-40 bg-blue-400 text-white py-2 rounded-lg">
+          <button
+            className="w-40 bg-blue-400 text-white py-2 rounded-lg"
+            onClick={handleUpdate}
+          >
             Update
           </button>
         </div>

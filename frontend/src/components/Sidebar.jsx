@@ -4,10 +4,23 @@ import { BiPackage } from "react-icons/bi";
 import { HiOutlineLogout } from "react-icons/hi";
 import { RiTruckLine } from "react-icons/ri";
 import { LuLayoutDashboard } from "react-icons/lu";
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
+import newRequest from "../utils/newRequest";
 
 const Sidebar = () => {
   const location = useLocation();
+  const navigate = useNavigate();
+
+  const handleLogout = async () => {
+    try {
+      await newRequest.post("/auth/logout");
+      localStorage.setItem("currentUser", null);
+      navigate("/auth/login");
+    } catch (err) {
+      console.log(err);
+    }
+  };
+
   return (
     <div className="h-[calc(100vh-80px)] mt-20 w-11 lg:w-40 fixed bg-white border-r-[1px] border-blue-200 flex flex-col justify-between items-center lg:items-start lg:pl-6">
       <ul className="flex flex-col gap-8 items-center lg:items-start mt-10 ">
@@ -61,7 +74,7 @@ const Sidebar = () => {
           </li>
         </Link>
         <Link
-          to={"/profile"}
+          to={"/profile/"}
           className={location.pathname === "/profile" ? "text-blue-400" : ""}
         >
           <li className="flex flex-row gap-2 relative cursor-pointer group">
@@ -80,7 +93,7 @@ const Sidebar = () => {
       </ul>
 
       <ul className="mb-6 ">
-        <Link to={"/"}>
+        <Link onClick={handleLogout}>
           <li className="flex flex-row gap-2 relative cursor-pointer group ">
             <HiOutlineLogout className="text-2xl text-blue-900 group-hover:text-blue-400" />
             <span className="hidden lg:block group-hover:text-blue-400">
